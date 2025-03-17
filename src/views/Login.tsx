@@ -29,6 +29,7 @@ import themeConfig from '@configs/themeConfig'
 
 // Hook Imports
 import { useSettings } from '@core/hooks/useSettings'
+import { loginWithPassword } from '@/action/auth'
 
 // Styled Custom Components
 const LoginIllustration = styled('img')(({ theme }) => ({
@@ -55,6 +56,16 @@ const LoginV2 = () => {
   const theme = useTheme()
 
   const handleClickShowPassword = () => setIsPasswordShown(show => !show)
+
+  const formSubmit = async (e: any) => {
+    e.preventDefault()
+    const formData = new FormData(e.currentTarget)
+    const email = formData.get("email") as string
+    const password = formData.get("password") as string
+
+    const response = await loginWithPassword(email, password)
+    console.log(response)
+  }
 
   return (
     <div className='flex bs-full justify-center'>
@@ -84,16 +95,21 @@ const LoginV2 = () => {
           <form
             noValidate
             autoComplete='off'
-            onSubmit={e => {
-              e.preventDefault()
-              router.push('/')
-            }}
+            onSubmit={formSubmit}
             className='flex flex-col gap-5'
           >
-            <CustomTextField autoFocus fullWidth label='Email or Username' placeholder='Enter your email or username' />
+            <CustomTextField
+              type='text'
+              autoFocus
+              fullWidth
+              name='email'
+              label='Email or Username'
+              placeholder='Enter your email or username'
+            />
             <CustomTextField
               fullWidth
               label='Password'
+              name='password'
               placeholder='············'
               type={isPasswordShown ? 'text' : 'password'}
               InputProps={{
