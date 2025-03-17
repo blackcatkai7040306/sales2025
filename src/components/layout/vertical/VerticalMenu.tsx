@@ -71,16 +71,16 @@ const VerticalMenu = ({ scrollMenu }: Props) => {
         <MenuItem href='/dashboard' icon={<i className='bx-home-smile' />}>
           Dashboard
         </MenuItem>
-        <MenuItem href='/coursemanagement' icon={<i className='bx-info-circle' />}>
+        <MenuItem href='/coursemanagement' icon={<i className='bx-food-menu' />}>
           Course Management
         </MenuItem>
-        <MenuItem href='/coursecatalog' icon={<i className='bx-info-circle' />}>
+        {/* <MenuItem href='/coursecatalog' icon={<i className='bx-info-circle' />}>
           Course Catalog
-        </MenuItem>
-        <MenuItem href='/users' icon={<i className='bx-info-circle' />}>
+        </MenuItem> */}
+        <MenuItem href='/users' icon={<i className='bx-user' />}>
           Users
         </MenuItem>
-        <MenuItem href='/my-courses' icon={<i className='bx-info-circle' />}>
+        <MenuItem href='/my-courses' icon={<i className='bx-book-open' />}>
           My Courses
         </MenuItem>
         <SubMenu label="Roles & Permission" icon={<i className='bx-check-shield' />}>

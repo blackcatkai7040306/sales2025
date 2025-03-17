@@ -82,23 +82,23 @@ const Sidebar = ({ content }: { content?: CourseContent[] }) => {
     setExpanded(isExpanded ? panel : false)
   }
 
-  const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>, index1: number, index2: number) => {
-    setItems(
-      items.map((item, i) => {
-        if (i === index1) {
-          return item.map((topic, j) => {
-            if (j === index2) {
-              return { ...topic, isCompleted: e.target.checked }
-            }
+  // const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>, index1: number, index2: number) => {
+  //   setItems(
+  //     items.map((item, i) => {
+  //       if (i === index1) {
+  //         return item.map((topic, j) => {
+  //           if (j === index2) {
+  //             return { ...topic, isCompleted: e.target.checked }
+  //           }
 
-            return topic
-          })
-        }
+  //           return topic
+  //         })
+  //       }
 
-        return item
-      })
-    )
-  }
+  //       return item
+  //     })
+  //   )
+  // }
 
   return (
     <>
@@ -129,18 +129,16 @@ const Sidebar = ({ content }: { content?: CourseContent[] }) => {
               <List role='list' component='div' className='flex flex-col gap-4 plb-0'>
                 {item.topics.map((topic, i) => {
                   return (
-                    <ListItem key={i} role='listitem' className='gap-3 p-0'>
-                      <ListItemIcon>
+                    <ListItem key={i} role='listitem' className='gap-3 p-0 cursor-pointer'>
+                      {/* <ListItemIcon>
                         <Checkbox
                           tabIndex={-1}
                           checked={items[index][i].isCompleted}
                           onChange={e => handleCheckboxChange(e, index, i)}
                         />
-                      </ListItemIcon>
-                      <div>
+                      </ListItemIcon> */}
                         <Typography variant='h6'>{`${i + 1}. ${topic.title}`}</Typography>
                         <Typography variant='body2'>{topic.time}</Typography>
-                      </div>
                     </ListItem>
                   )
                 })}
