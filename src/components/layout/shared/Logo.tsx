@@ -70,7 +70,7 @@ const Logo = ({ color }: { color?: CSSProperties['color'] }) => {
   }, [isHovered, layout, isBreakpointReached])
 
   return (
-    <div className='flex items-center'>
+    <div className='flex items-center h-[28px]'>
       <SneatLogo className='text-2xl text-primary' />
       <LogoText
         color={color}

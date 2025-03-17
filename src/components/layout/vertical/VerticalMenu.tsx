@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 // MUI Imports
 import { useTheme } from '@mui/material/styles'
 
@@ -36,6 +37,7 @@ const RenderExpandIcon = ({ open, transitionDuration }: RenderExpandIconProps) =
 )
 
 const VerticalMenu = ({ scrollMenu }: Props) => {
+
   // Hooks
   const theme = useTheme()
   const verticalNavOptions = useVerticalNav()
@@ -45,19 +47,32 @@ const VerticalMenu = ({ scrollMenu }: Props) => {
 
   const ScrollWrapper = isBreakpointReached ? 'div' : PerfectScrollbar
 
+  const [currentRole, setCurrentRole] = useState('')
+
+  useEffect(() => {
+    const role = localStorage.getItem('testing-role')
+    setCurrentRole(role || "");
+
+  }, [])
+  // const menuItems = [
+  //   { label: 'Dashboard', path: '/dashboard', roles: ['admin'] },
+  //   { label: '', path: '/admin', roles: ['admin'] },
+  //   { label: 'Editor Tools', path: '/editor', roles: ['admin', 'editor'] },
+  // ];
+
   return (
     // eslint-disable-next-line lines-around-comment
     /* Custom scrollbar instead of browser scroll, remove if you want browser scroll only */
     <ScrollWrapper
       {...(isBreakpointReached
         ? {
-            className: 'bs-full overflow-y-auto overflow-x-hidden',
-            onScroll: container => scrollMenu(container, false)
-          }
+          className: 'bs-full overflow-y-auto overflow-x-hidden',
+          onScroll: container => scrollMenu(container, false)
+        }
         : {
-            options: { wheelPropagation: false, suppressScrollX: true },
-            onScrollY: container => scrollMenu(container, true)
-          })}
+          options: { wheelPropagation: false, suppressScrollX: true },
+          onScrollY: container => scrollMenu(container, true)
+        })}
     >
       {/* Incase you also want to scroll NavHeader to scroll with Vertical Menu, remove NavHeader from above and paste it below this comment */}
       {/* Vertical Menu */}
@@ -71,22 +86,23 @@ const VerticalMenu = ({ scrollMenu }: Props) => {
         <MenuItem href='/dashboard' icon={<i className='bx-home-smile' />}>
           Dashboard
         </MenuItem>
-        <MenuItem href='/coursemanagement' icon={<i className='bx-food-menu' />}>
-          Course Management
-        </MenuItem>
-        {/* <MenuItem href='/coursecatalog' icon={<i className='bx-info-circle' />}>
-          Course Catalog
-        </MenuItem> */}
-        <MenuItem href='/users' icon={<i className='bx-user' />}>
-          Users
-        </MenuItem>
+        {
+          currentRole == "admin" && <MenuItem href='/coursemanagement' icon={<i className='bx-food-menu' />}>
+            Course Management
+          </MenuItem>
+        }
+        {
+          currentRole == "admin" && <MenuItem href='/users' icon={<i className='bx-user' />}>
+            Users
+          </MenuItem>}
         <MenuItem href='/my-courses' icon={<i className='bx-book-open' />}>
           My Courses
         </MenuItem>
-        <SubMenu label="Roles & Permission" icon={<i className='bx-check-shield' />}>
+        {
+          currentRole == "admin" && <SubMenu label="Roles & Permission" icon={<i className='bx-check-shield' />}>
             <MenuItem href='/roles'>Roles</MenuItem>
-            <MenuItem href = '/permissions'>permissions</MenuItem>
-        </SubMenu>
+            <MenuItem href='/permissions'>permissions</MenuItem>
+          </SubMenu>}
       </Menu>
       {/* <Menu
         popoutMenuOffset={{ mainAxis: 27 }}

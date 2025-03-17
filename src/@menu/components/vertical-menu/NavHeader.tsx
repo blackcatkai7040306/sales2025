@@ -41,6 +41,9 @@ const NavHeader = ({ children }: ChildrenType) => {
       isCollapsed={isCollapsed}
       collapsedWidth={collapsedWidth}
       transitionDuration={transitionDuration}
+      style={{
+        paddingInline: "27px !important",
+      }}
     >
       {children}
     </StyledNavHeader>

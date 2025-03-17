@@ -30,6 +30,8 @@ import themeConfig from '@configs/themeConfig'
 // Hook Imports
 import { useSettings } from '@core/hooks/useSettings'
 import { loginWithPassword } from '@/action/auth'
+import { jwtDecode as jwt_decode } from 'jwt-decode'
+
 
 // Styled Custom Components
 const LoginIllustration = styled('img')(({ theme }) => ({
@@ -63,8 +65,27 @@ const LoginV2 = () => {
     const email = formData.get("email") as string
     const password = formData.get("password") as string
 
-    const response = await loginWithPassword(email, password)
-    console.log(response)
+    try {
+      const response = await loginWithPassword(email, password)
+      if (response && response.data) {
+        console.log("this is reposne ================", response.data)
+        const { token } = response.data
+        const testing_role = response.data['testing-role'];
+        const testing_userid = response.data['testing-userid'];
+        console.log('Token:', token)
+        console.log('User ID:', testing_userid)
+        console.log('Role:', testing_role)
+
+        // Store token in local storage or cookies
+        localStorage.setItem('token', token)
+        localStorage.setItem('testing-role', testing_role)
+
+        // Redirect to the dashboard or another page
+        router.push('/dashboard')
+      }
+    } catch (error) {
+      console.error('Login failed:', error)
+    }
   }
 
   return (
