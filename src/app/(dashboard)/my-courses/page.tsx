@@ -3,7 +3,7 @@ import AcademyMyCourse from './index';
 
 // Server Action Imports
 import { getServerMode } from '@core/utils/serverHelpers'
-import { db } from '../course-details/coursedata';
+import { db } from '../course-details/detaildata';
 
 // Data Imports
 // import { getAcademyData } from '@/app/server/actions'

@@ -44,7 +44,6 @@ import type { ThemeColor } from '@core/types'
 import type { CourseType } from '@/types/courseTypes'
 
 // Component Imports
-import TableFilters from './TableFilters'
 import AddCourseDrawer from './AddCourseDrawer'
 import OptionMenu from '@core/components/option-menu'
 import CustomTextField from '@core/components/mui/TextField'
@@ -145,7 +144,7 @@ const CourseListTable = ({ tableData }: { tableData?: CourseType[] }) => {
   const [addUserOpen, setAddUserOpen] = useState(false)
   const [rowSelection, setRowSelection] = useState({})
   const [data, setData] = useState(...[tableData])
-  const [filteredData, setFilteredData] = useState(data)
+  // const [filteredData, setFilteredData] = useState(data)
   const [globalFilter, setGlobalFilter] = useState('')
 
   // Hooks
@@ -265,11 +264,11 @@ const CourseListTable = ({ tableData }: { tableData?: CourseType[] }) => {
       })
     ],
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [data, filteredData]
+    [data]
   )
 
   const table = useReactTable({
-    data: filteredData as CourseType[],
+    data: data as CourseType[],
     columns,
     filterFns: {
       fuzzy: fuzzyFilter
@@ -310,7 +309,7 @@ const CourseListTable = ({ tableData }: { tableData?: CourseType[] }) => {
   return (
     <>
       <Card>
-        <CardHeader title='Filters' className='pbe-4' />
+        <CardHeader title='Courses' className='pbe-4' />
         {/* <TableFilters setData={setFilteredData} tableData={data} /> */}
         <div className='flex justify-between flex-col items-start md:flex-row md:items-center p-6 border-bs gap-4'>
           <CustomTextField

@@ -81,7 +81,7 @@ const AddCourseDrawer = (props: Props) => {
       createdon: data.createon,
       lessons: data.lessons,
     }
-
+    console.log(newUser);
     setData([...(userData ?? []), newUser])
     handleClose()
     setFormData(initialData)
